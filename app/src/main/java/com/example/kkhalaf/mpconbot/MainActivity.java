@@ -29,7 +29,6 @@ public class MainActivity extends AppCompatActivity {
                             int port = 15000;
                             String message = "Test";
                             DatagramSocket dsocket = null;
-
                             public void onClick(View v)
                             {
                                 try {
@@ -46,9 +45,8 @@ public class MainActivity extends AppCompatActivity {
                                     dsocket = new DatagramSocket();
                                     dsocket.send(packet);
                                     dsocket.close();
-
                                 } catch (Exception e) {
-                                    System.err.println(e);
+                                    e.printStackTrace();
                                 }
                             }
                         }
