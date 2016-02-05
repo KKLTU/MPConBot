@@ -59,10 +59,10 @@ public class MainActivity extends AppCompatActivity {
                                     ds.send(dp);
                                 } catch (Exception e) {
                                     e.printStackTrace();
-                                } finally {
-                                    if (ds != null) {
-                                        ds.close();
-                                    }
+//                                } finally {
+//                                    if (ds != null) {
+//                                        ds.close();
+//                                    }
                                 }
                             }
                         }
