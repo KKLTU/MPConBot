@@ -13,9 +13,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Send"
-        android:id="@+id/Test"
+        android:id="@+id/TestButton"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="101dp" />
+
+    <TextView
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Text"
+        android:id="@+id/TestText"
+        android:layout_below="@+id/TestButton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="45dp"
+        android:background="#ffffff00" />
 
 </RelativeLayout>
