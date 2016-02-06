@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.view.MotionEvent;
 import java.net.*;
 
 
@@ -20,74 +21,97 @@ public class MainActivity extends AppCompatActivity {
         // Button Declaration
         final TextView TextOne = (TextView) findViewById(R.id.StatusText);
         Button FrwrdBtn = (Button) findViewById(R.id.ForwardButton);
-        Button StpBtn = (Button) findViewById(R.id.StopButton);
         Button BkwrdBtn = (Button) findViewById(R.id.BackwardButton);
         Button RgtBtn = (Button) findViewById(R.id.RightButton);
         Button LftBtn = (Button) findViewById(R.id.LeftButton);
 
         // Forward Button Click
-        FrwrdBtn.setOnClickListener(
-                new Button.OnClickListener() {
-                    public void onClick(View v) {
-                        TextOne.setText("Forward");
-
-                        message = "Forward";
-                        SendUdpMsg(message);
-                    }//onClick
-                }//onClickListener
-        );//setOnClickListener
+        FrwrdBtn.setOnTouchListener(
+                new Button.OnTouchListener() {
+                    public boolean onTouch(View v, MotionEvent event) {
+                        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                            //Button pressed
+                            TextOne.setText("Forward");
+                            message = "Forward";
+                            SendUdpMsg(message);
+                            return true;
+                        } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                            //Button released
+                            TextOne.setText("Stop");
+                            message = "Stop";
+                            SendUdpMsg(message);
+                            return true;
+                        }
+                        return false;
+                    }//onTouch
+                });//setOnTouchListener
 
         // Backward Button Click
-        BkwrdBtn.setOnClickListener(
-                new Button.OnClickListener() {
-                    public void onClick(View v) {
-                        TextOne.setText("Backward");
-
-                        message = "Backward";
-                        SendUdpMsg(message);
-                    }//onClick
-                }//onClickListener
-        );//setOnClickListener
-
-        // Stop Button Click
-        StpBtn.setOnClickListener(
-                new Button.OnClickListener() {
-                    public void onClick(View v) {
-                        TextOne.setText("Stop");
-
-                        message = "Stop";
-                        SendUdpMsg(message);
-                    }//onClick
-                }//onClickListener
-        );//setOnClickListener
+        BkwrdBtn.setOnTouchListener(
+                new Button.OnTouchListener() {
+                    public boolean onTouch(View v, MotionEvent event) {
+                        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                            //Button pressed
+                            TextOne.setText("Backward");
+                            message = "Backward";
+                            SendUdpMsg(message);
+                            return true;
+                        } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                            //Button released
+                            TextOne.setText("Stop");
+                            message = "Stop";
+                            SendUdpMsg(message);
+                            return true;
+                        }
+                        return false;
+                    }//onTouch
+                });//setOnTouchListener
 
         // Right Button Click
-        RgtBtn.setOnClickListener(
-                new Button.OnClickListener() {
-                    public void onClick(View v) {
-                        TextOne.setText("Right");
-
-                        message = "Right";
-                        SendUdpMsg(message);
-                    }//onClick
-                }//onClickListener
-        );//setOnClickListener
+        RgtBtn.setOnTouchListener(
+                new Button.OnTouchListener() {
+                    public boolean onTouch(View v, MotionEvent event) {
+                        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                            //Button pressed
+                            TextOne.setText("Right");
+                            message = "Right";
+                            SendUdpMsg(message);
+                            return true;
+                        } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                            //Button released
+                            TextOne.setText("Stop");
+                            message = "Stop";
+                            SendUdpMsg(message);
+                            return true;
+                        }
+                        return false;
+                    }//onTouch
+                });//setOnTouchListener
 
         // Left Button Click
-        LftBtn.setOnClickListener(
-                new Button.OnClickListener() {
-                    public void onClick(View v) {
-                        TextOne.setText("Left");
-
-                        message = "Left";
-                        SendUdpMsg(message);
-                    }//onClick
-                }//onClickListener
-        );//setOnClickListener
+        LftBtn.setOnTouchListener(
+                new Button.OnTouchListener() {
+                    public boolean onTouch(View v, MotionEvent event) {
+                        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                            //Button pressed
+                            TextOne.setText("Left");
+                            message = "Left";
+                            SendUdpMsg(message);
+                            return true;
+                        } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                            //Button released
+                            TextOne.setText("Stop");
+                            message = "Stop";
+                            SendUdpMsg(message);
+                            return true;
+                        }
+                        return false;
+                    }//onTouch
+                });//setOnTouchListener
     }
 
 
-    // This function is responsible for sending a udp packet to a hardCoded IP below
+    // This function is responsible for sending a udp packet to a hardCoded IP below. Returns nothing and takes a string(the message) as a parameter.
     public void SendUdpMsg(final String msg)
     {
         Thread networkThread = new Thread() {

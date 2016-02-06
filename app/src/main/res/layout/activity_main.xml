@@ -31,36 +31,28 @@
     <Button
         android:layout_width="150dp"
         android:layout_height="100dp"
-        android:text="STOP"
-        android:id="@+id/StopButton"
-        android:layout_below="@+id/ForwardButton"
-        android:layout_centerHorizontal="true" />
-
-    <Button
-        android:layout_width="150dp"
-        android:layout_height="100dp"
         android:text="BACKWARD"
         android:id="@+id/BackwardButton"
-        android:layout_below="@+id/StopButton"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerVertical="true"
+        android:layout_alignLeft="@+id/ForwardButton"
+        android:layout_alignStart="@+id/ForwardButton" />
 
     <Button
-        android:layout_width="150dp"
+        android:layout_width="100dp"
         android:layout_height="150dp"
         android:text="Right"
         android:id="@+id/RightButton"
-        android:layout_alignBottom="@+id/StopButton"
-        android:layout_toRightOf="@+id/StopButton"
-        android:layout_toEndOf="@+id/StopButton"
-        android:layout_marginBottom="32dp" />
+        android:layout_alignTop="@+id/LeftButton"
+        android:layout_toEndOf="@+id/ForwardButton"
+        android:layout_toRightOf="@+id/ForwardButton" />
 
     <Button
-        android:layout_width="150dp"
+        android:layout_width="110dp"
         android:layout_height="150dp"
         android:text="LEFT"
         android:id="@+id/LeftButton"
-        android:layout_alignBottom="@+id/RightButton"
-        android:layout_toLeftOf="@+id/StopButton"
-        android:layout_toStartOf="@+id/StopButton" />
+        android:layout_alignBottom="@+id/BackwardButton"
+        android:layout_toStartOf="@+id/ForwardButton"
+        android:layout_toLeftOf="@+id/ForwardButton" />
 
 </RelativeLayout>
