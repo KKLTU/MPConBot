@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
                                 String message = "Test";
                                 DatagramSocket dsocket = null;
 
+                                // Use of StrictMode to fix Android.os.NetworkOnMainThreadException but App is not working still
                                 if (android.os.Build.VERSION.SDK_INT > 9)
                                 {
                                     StrictMode.ThreadPolicy policy =
