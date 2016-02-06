@@ -6,9 +6,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import java.net.*;
-import android.os.StrictMode;
-import android.os.AsyncTask;
-
 
 
 public class MainActivity extends AppCompatActivity {
@@ -21,25 +18,77 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // Button Declaration
-        Button ButtonOne = (Button) findViewById(R.id.TestButton);
+        final TextView TextOne = (TextView) findViewById(R.id.StatusText);
+        Button FrwrdBtn = (Button) findViewById(R.id.ForwardButton);
+        Button StpBtn = (Button) findViewById(R.id.StopButton);
+        Button BkwrdBtn = (Button) findViewById(R.id.BackwardButton);
+        Button RgtBtn = (Button) findViewById(R.id.RightButton);
+        Button LftBtn = (Button) findViewById(R.id.LeftButton);
 
-
-        // Button Click
-        ButtonOne.setOnClickListener(
+        // Forward Button Click
+        FrwrdBtn.setOnClickListener(
                 new Button.OnClickListener() {
                     public void onClick(View v) {
-                        TextView TextOne = (TextView) findViewById(R.id.TestText);
-                        TextOne.setText("Hi");
+                        TextOne.setText("Forward");
 
-                        message = "Test";
-                        UdpClient(message);
+                        message = "Forward";
+                        SendUdpMsg(message);
+                    }//onClick
+                }//onClickListener
+        );//setOnClickListener
+
+        // Backward Button Click
+        BkwrdBtn.setOnClickListener(
+                new Button.OnClickListener() {
+                    public void onClick(View v) {
+                        TextOne.setText("Backward");
+
+                        message = "Backward";
+                        SendUdpMsg(message);
+                    }//onClick
+                }//onClickListener
+        );//setOnClickListener
+
+        // Stop Button Click
+        StpBtn.setOnClickListener(
+                new Button.OnClickListener() {
+                    public void onClick(View v) {
+                        TextOne.setText("Stop");
+
+                        message = "Stop";
+                        SendUdpMsg(message);
+                    }//onClick
+                }//onClickListener
+        );//setOnClickListener
+
+        // Right Button Click
+        RgtBtn.setOnClickListener(
+                new Button.OnClickListener() {
+                    public void onClick(View v) {
+                        TextOne.setText("Right");
+
+                        message = "Right";
+                        SendUdpMsg(message);
+                    }//onClick
+                }//onClickListener
+        );//setOnClickListener
+
+        // Left Button Click
+        LftBtn.setOnClickListener(
+                new Button.OnClickListener() {
+                    public void onClick(View v) {
+                        TextOne.setText("Left");
+
+                        message = "Left";
+                        SendUdpMsg(message);
                     }//onClick
                 }//onClickListener
         );//setOnClickListener
     }
 
+
     // This function is responsible for sending a udp packet to a hardCoded IP below
-    public void UdpClient(final String msg)
+    public void SendUdpMsg(final String msg)
     {
         Thread networkThread = new Thread() {
 

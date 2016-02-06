@@ -10,23 +10,57 @@
     tools:context="com.example.kkhalaf.mpconbot.MainActivity">
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Send"
-        android:id="@+id/TestButton"
+        android:layout_width="150dp"
+        android:layout_height="100dp"
+        android:text="Forward"
+        android:id="@+id/ForwardButton"
+        android:layout_marginTop="62dp"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="101dp" />
+        android:layout_centerHorizontal="true" />
 
     <TextView
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
+        android:layout_width="150dp"
+        android:layout_height="100dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Text"
-        android:id="@+id/TestText"
-        android:layout_below="@+id/TestButton"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="45dp"
-        android:background="#ffffff00" />
+        android:id="@+id/StatusText"
+        android:background="#ffffff00"
+        android:layout_alignParentBottom="true"
+        android:layout_alignLeft="@+id/ForwardButton"
+        android:layout_alignStart="@+id/ForwardButton" />
+
+    <Button
+        android:layout_width="150dp"
+        android:layout_height="100dp"
+        android:text="STOP"
+        android:id="@+id/StopButton"
+        android:layout_below="@+id/ForwardButton"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="150dp"
+        android:layout_height="100dp"
+        android:text="BACKWARD"
+        android:id="@+id/BackwardButton"
+        android:layout_below="@+id/StopButton"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:text="Right"
+        android:id="@+id/RightButton"
+        android:layout_alignBottom="@+id/StopButton"
+        android:layout_toRightOf="@+id/StopButton"
+        android:layout_toEndOf="@+id/StopButton"
+        android:layout_marginBottom="32dp" />
+
+    <Button
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:text="LEFT"
+        android:id="@+id/LeftButton"
+        android:layout_alignBottom="@+id/RightButton"
+        android:layout_toLeftOf="@+id/StopButton"
+        android:layout_toStartOf="@+id/StopButton" />
 
 </RelativeLayout>
