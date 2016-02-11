@@ -117,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
         Thread networkThread = new Thread() {
 
             // No local Host 127.0.0.1 in Android
-            String host = "172.24.212.148"; // localhost
+            String host = "171.24.212.148"; // localhost
             int port = 15000;
             DatagramSocket dsocket = null;
 
