@@ -12,6 +12,7 @@ import java.net.*;
 public class MainActivity extends AppCompatActivity {
 
     String message;
+    String Response;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,12 +98,10 @@ public class MainActivity extends AppCompatActivity {
                             TextOne.setText("Left");
                             message = "Left";
                             SendUdpMsg(message);
+                            TextOne.setText(Response);
                             return true;
                         } else if (event.getAction() == MotionEvent.ACTION_UP) {
-                            //Button released
-                            TextOne.setText("Stop");
-                            message = "Stop";
-                            SendUdpMsg(message);
+                            //Button released do nothing
                             return true;
                         }
                         return false;
@@ -110,16 +109,16 @@ public class MainActivity extends AppCompatActivity {
                 });//setOnTouchListener
     }
 
-
     // This function is responsible for sending a udp packet to a hardCoded IP below. Returns nothing and takes a string(the message) as a parameter.
     public void SendUdpMsg(final String msg)
     {
         Thread networkThread = new Thread() {
 
             // No local Host 127.0.0.1 in Android
-            String host = "171.24.212.148"; // localhost
+            String host = "192.168.200.3"; // my actual IP
             int port = 15000;
             DatagramSocket dsocket = null;
+            String Response = "1";
 
             public void run() {
                 try {
@@ -135,6 +134,21 @@ public class MainActivity extends AppCompatActivity {
                     // Create a datagram socket, send the packet through it, close it.
                     dsocket = new DatagramSocket();
                     dsocket.send(packet);
+
+                    // Here, I am receiving the response?
+                    byte[] buffer = new byte[1024];
+                    DatagramPacket packet2 = new DatagramPacket(buffer, buffer.length);
+                    dsocket.receive(packet2);
+                    Response = new String(buffer, 0, packet2.getLength());
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run()
+                        {
+                            // this is executed on the main (UI) thread
+                            final TextView TextOne = (TextView) findViewById(R.id.StatusText);
+                            TextOne.setText(Response);
+                        }
+                    });
                     dsocket.close();
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -142,5 +156,8 @@ public class MainActivity extends AppCompatActivity {
             }//run
         };// Networkthread
         networkThread.start();//networkThread.start()
+
+
     }
+
 }
