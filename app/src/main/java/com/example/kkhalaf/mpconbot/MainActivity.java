@@ -180,7 +180,7 @@ public class MainActivity extends AppCompatActivity {
                                 imageView.setImageBitmap(ReceivedImage);
                             }
                         });
-                    }
+                    }//
                     //dsocket.close();
                 } catch (Exception e) {
                     e.printStackTrace();
