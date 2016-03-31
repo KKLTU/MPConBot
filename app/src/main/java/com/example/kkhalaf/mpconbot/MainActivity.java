@@ -4,9 +4,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.view.MotionEvent;
 import java.net.*;
+import java.lang.Object;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -19,106 +23,128 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Button Declaration
-        final TextView TextOne = (TextView) findViewById(R.id.StatusText);
-        Button FrwrdBtn = (Button) findViewById(R.id.ForwardButton);
-        Button BkwrdBtn = (Button) findViewById(R.id.BackwardButton);
-        Button RgtBtn = (Button) findViewById(R.id.RightButton);
-        Button LftBtn = (Button) findViewById(R.id.LeftButton);
+        Button StrtBtn = (Button) findViewById(R.id.StartButton);
+        Button StpBtn = (Button) findViewById(R.id.StopButton);
+        //final ImageView imageView = (ImageView)findViewById(R.id.imageView);
 
-        // Forward Button Click
-        FrwrdBtn.setOnTouchListener(
-                new Button.OnTouchListener() {
-                    public boolean onTouch(View v, MotionEvent event) {
-                        if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                            //Button pressed
-                            TextOne.setText("Forward");
-                            message = "Forward";
-                            SendUdpMsg(message);
-                            return true;
-                        } else if (event.getAction() == MotionEvent.ACTION_UP) {
-                            //Button released
-                            TextOne.setText("Stop");
-                            message = "Stop";
-                            SendUdpMsg(message);
-                            return true;
-                        }
-                        return false;
-                    }//onTouch
-                });//setOnTouchListener
+        // Start Button Click
+        StrtBtn.setOnClickListener(
+                new Button.OnClickListener() {
+                    public void onClick(View v) {
+                        message = "StartVideo";
+                        SendUdpMsg();
+                    }//onClick
+                }//onClickListener
+        );//setOnClickListener
 
-        // Backward Button Click
-        BkwrdBtn.setOnTouchListener(
-                new Button.OnTouchListener() {
-                    public boolean onTouch(View v, MotionEvent event) {
-                        if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                            //Button pressed
-                            TextOne.setText("Backward");
-                            message = "Backward";
-                            SendUdpMsg(message);
-                            return true;
-                        } else if (event.getAction() == MotionEvent.ACTION_UP) {
-                            //Button released
-                            TextOne.setText("Stop");
-                            message = "Stop";
-                            SendUdpMsg(message);
-                            return true;
-                        }
-                        return false;
-                    }//onTouch
-                });//setOnTouchListener
+        // Stop Button Click
+        StpBtn.setOnClickListener(
+                new Button.OnClickListener() {
+                    public void onClick(View v) {
+                        message = "StopVideo";
+                        //SendUdpMsg();
+                    }//onClick
+                }//onClickListener
+        );//setOnClickListener
 
-        // Right Button Click
-        RgtBtn.setOnTouchListener(
-                new Button.OnTouchListener() {
-                    public boolean onTouch(View v, MotionEvent event) {
-                        if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                            //Button pressed
-                            TextOne.setText("Right");
-                            message = "Right";
-                            SendUdpMsg(message);
-                            return true;
-                        } else if (event.getAction() == MotionEvent.ACTION_UP) {
-                            //Button released
-                            TextOne.setText("Stop");
-                            message = "Stop";
-                            SendUdpMsg(message);
-                            return true;
-                        }
-                        return false;
-                    }//onTouch
-                });//setOnTouchListener
-
-        // Left Button Click
-        LftBtn.setOnTouchListener(
-                new Button.OnTouchListener() {
-                    public boolean onTouch(View v, MotionEvent event) {
-                        if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                            //Button pressed
-                            TextOne.setText("Left");
-                            message = "Left";
-                            SendUdpMsg(message);
-                            TextOne.setText(Response);
-                            return true;
-                        } else if (event.getAction() == MotionEvent.ACTION_UP) {
-                            //Button released do nothing
-                            return true;
-                        }
-                        return false;
-                    }//onTouch
-                });//setOnTouchListener
+//        // Button Declaration
+//        final TextView TextOne = (TextView) findViewById(R.id.StatusText);
+//        Button FrwrdBtn = (Button) findViewById(R.id.ForwardButton);
+//        Button BkwrdBtn = (Button) findViewById(R.id.BackwardButton);
+//        Button RgtBtn = (Button) findViewById(R.id.RightButton);
+//        Button LftBtn = (Button) findViewById(R.id.LeftButton);
+//
+//        // Forward Button Click
+//        FrwrdBtn.setOnTouchListener(
+//                new Button.OnTouchListener() {
+//                    public boolean onTouch(View v, MotionEvent event) {
+//                        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+//                            //Button pressed
+//                            TextOne.setText("Forward");
+//                            message = "Forward";
+//                            SendUdpMsg(message);
+//                            return true;
+//                        } else if (event.getAction() == MotionEvent.ACTION_UP) {
+//                            //Button released
+//                            TextOne.setText("Stop");
+//                            message = "Stop";
+//                            SendUdpMsg(message);
+//                            return true;
+//                        }
+//                        return false;
+//                    }//onTouch
+//                });//setOnTouchListener
+//
+//        // Backward Button Click
+//        BkwrdBtn.setOnTouchListener(
+//                new Button.OnTouchListener() {
+//                    public boolean onTouch(View v, MotionEvent event) {
+//                        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+//                            //Button pressed
+//                            TextOne.setText("Backward");
+//                            message = "Backward";
+//                            SendUdpMsg(message);
+//                            return true;
+//                        } else if (event.getAction() == MotionEvent.ACTION_UP) {
+//                            //Button released
+//                            TextOne.setText("Stop");
+//                            message = "Stop";
+//                            SendUdpMsg(message);
+//                            return true;
+//                        }
+//                        return false;
+//                    }//onTouch
+//                });//setOnTouchListener
+//
+//        // Right Button Click
+//        RgtBtn.setOnTouchListener(
+//                new Button.OnTouchListener() {
+//                    public boolean onTouch(View v, MotionEvent event) {
+//                        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+//                            //Button pressed
+//                            TextOne.setText("Right");
+//                            message = "Right";
+//                            SendUdpMsg(message);
+//                            return true;
+//                        } else if (event.getAction() == MotionEvent.ACTION_UP) {
+//                            //Button released
+//                            TextOne.setText("Stop");
+//                            message = "Stop";
+//                            SendUdpMsg(message);
+//                            return true;
+//                        }
+//                        return false;
+//                    }//onTouch
+//                });//setOnTouchListener
+//
+//        // Left Button Click
+//        LftBtn.setOnTouchListener(
+//                new Button.OnTouchListener() {
+//                    public boolean onTouch(View v, MotionEvent event) {
+//                        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+//                            //Button pressed
+//                            TextOne.setText("Left");
+//                            message = "Left";
+//                            SendUdpMsg(message);
+//                            return true;
+//                        } else if (event.getAction() == MotionEvent.ACTION_UP) {
+//                            //Button released do nothing
+//                            return true;
+//                        }
+//                        return false;
+//                    }//onTouch
+//                });//setOnTouchListener
     }
 
     // This function is responsible for sending a udp packet to a hardCoded IP below. Returns nothing and takes a string(the message) as a parameter.
-    public void SendUdpMsg(final String msg)
+    public void SendUdpMsg()
     {
         Thread networkThread = new Thread() {
 
             // No local Host 127.0.0.1 in Android
-            String host = "192.168.200.3"; // my actual IP
+            String host = "192.168.200.3"; // Server's IP
             int port = 15000;
             DatagramSocket dsocket = null;
-            String Response = "1";
 
             public void run() {
                 try {
@@ -126,38 +152,42 @@ public class MainActivity extends AppCompatActivity {
                     InetAddress address = InetAddress.getByName(host);
 
                     // wrap a packet
-                    DatagramPacket packet = new DatagramPacket(
-                            msg.getBytes(),
-                            msg.length(),
+                    DatagramPacket packetToSend = new DatagramPacket(
+                            message.getBytes(),
+                            message.length(),
                             address, port);
 
-                    // Create a datagram socket, send the packet through it, close it.
+                    // Create a datagram socket, send the packet through it.
                     dsocket = new DatagramSocket();
-                    dsocket.send(packet);
+                    dsocket.send(packetToSend);
 
-                    // Here, I am receiving the response?
-                    byte[] buffer = new byte[1024];
-                    DatagramPacket packet2 = new DatagramPacket(buffer, buffer.length);
-                    dsocket.receive(packet2);
-                    Response = new String(buffer, 0, packet2.getLength());
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run()
+                    // Here, I am receiving the response
+                    byte[] buffer = new byte[65535]; // prepare
+                    DatagramPacket packetReceived = new DatagramPacket(buffer, buffer.length); // prepare
+
+                    while (true)
+                    {
+                        dsocket.receive(packetReceived); // receive packet
+                        byte[] buff = packetReceived.getData(); // convert packet to byte[]
+                        final Bitmap ReceivedImage = BitmapFactory.decodeByteArray(buff, 0, buff.length); // convert byte[] to image
+                        runOnUiThread(new Runnable()
                         {
-                            // this is executed on the main (UI) thread
-                            final TextView TextOne = (TextView) findViewById(R.id.StatusText);
-                            TextOne.setText(Response);
-                        }
-                    });
-                    dsocket.close();
+                            @Override
+                            public void run()
+                            {
+                                // this is executed on the main (UI) thread
+                                final ImageView imageView = (ImageView) findViewById(R.id.imageView);
+                                imageView.setImageBitmap(ReceivedImage);
+                            }
+                        });
+                    }
+                    //dsocket.close();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }//catch
             }//run
         };// Networkthread
         networkThread.start();//networkThread.start()
-
-
     }
 
 }

@@ -9,7 +9,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.kkhalaf.mpconbot.MainActivity">
 
-    <Button
+    <!--<Button
         android:layout_width="150dp"
         android:layout_height="100dp"
         android:text="Forward"
@@ -17,7 +17,6 @@
         android:layout_marginTop="62dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
-
     <TextView
         android:layout_width="150dp"
         android:layout_height="100dp"
@@ -27,7 +26,6 @@
         android:layout_alignParentBottom="true"
         android:layout_alignLeft="@+id/ForwardButton"
         android:layout_alignStart="@+id/ForwardButton" />
-
     <Button
         android:layout_width="150dp"
         android:layout_height="100dp"
@@ -36,7 +34,6 @@
         android:layout_centerVertical="true"
         android:layout_alignLeft="@+id/ForwardButton"
         android:layout_alignStart="@+id/ForwardButton" />
-
     <Button
         android:layout_width="100dp"
         android:layout_height="150dp"
@@ -45,7 +42,6 @@
         android:layout_alignTop="@+id/LeftButton"
         android:layout_toEndOf="@+id/ForwardButton"
         android:layout_toRightOf="@+id/ForwardButton" />
-
     <Button
         android:layout_width="110dp"
         android:layout_height="150dp"
@@ -53,6 +49,42 @@
         android:id="@+id/LeftButton"
         android:layout_alignBottom="@+id/BackwardButton"
         android:layout_toStartOf="@+id/ForwardButton"
-        android:layout_toLeftOf="@+id/ForwardButton" />
+        android:layout_toLeftOf="@+id/ForwardButton" /> -->
+
+    <TextView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/StatusText"
+        android:background="#ffffff00"
+        android:layout_alignParentBottom="true"
+        android:layout_alignTop="@+id/StartButton" />
+
+    <Button
+        android:layout_width="110dp"
+        android:layout_height="150dp"
+        android:text="Start"
+        android:id="@+id/StartButton"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/StatusText"
+        android:layout_toEndOf="@+id/StatusText" />
+
+    <ImageView
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:id="@+id/imageView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        android:layout_width="110dp"
+        android:layout_height="150dp"
+        android:text="Stop"
+        android:id="@+id/StopButton"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/StartButton"
+        android:layout_toEndOf="@+id/StartButton" />
 
 </RelativeLayout>
