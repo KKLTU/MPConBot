@@ -15,12 +15,19 @@ import android.graphics.BitmapFactory;
 
 public class MainActivity extends AppCompatActivity {
 
-    String message;
-
+    boolean VFlag = true;
+    Thread VideoThread = new Thread();
+    Thread L2BotThread = new Thread();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        final String FrameRequest = "Picture";
+        final String MoveLeft = "Left";
+        final String MoveRight = "Right";
+        final String MoveBackwards = "Backward";
+        final String MoveForwards = "Forward";
 
         // video stream control
         Button StrtVBtn = (Button) findViewById(R.id.StartVButton);
@@ -36,8 +43,7 @@ public class MainActivity extends AppCompatActivity {
         StrtVBtn.setOnClickListener(
                 new Button.OnClickListener() {
                     public void onClick(View v) {
-                        message = "StartV";
-                        SendUdpMsg();
+                        SendRequestAndReceiveAndDisplaySinglePicture(FrameRequest);
                     }
                 }
         );
@@ -46,8 +52,7 @@ public class MainActivity extends AppCompatActivity {
         StpVBtn.setOnClickListener(
                 new Button.OnClickListener() {
                     public void onClick(View v) {
-                        message = "StopV";
-
+                        VideoThread.interrupt();
                     }
                 }
         );
@@ -58,12 +63,12 @@ public class MainActivity extends AppCompatActivity {
                     public boolean onTouch(View v, MotionEvent event) {
                         if (event.getAction() == MotionEvent.ACTION_DOWN) {
                             //Button pressed
-                            message = "Forward";
+                            ControlL2Bot(MoveForwards);
 
                             return true;
                         } else if (event.getAction() == MotionEvent.ACTION_UP) {
                             //Button released
-                            message = "Stop";
+                            ControlL2Bot("Stop");
                             return true;
                         }
                         return false;
@@ -76,11 +81,11 @@ public class MainActivity extends AppCompatActivity {
                     public boolean onTouch(View v, MotionEvent event) {
                         if (event.getAction() == MotionEvent.ACTION_DOWN) {
                             //Button pressed
-                            message = "Backward";
+                            ControlL2Bot(MoveBackwards);
                             return true;
                         } else if (event.getAction() == MotionEvent.ACTION_UP) {
                             //Button released
-                            message = "Stop";
+                            ControlL2Bot("Stop");
                             return true;
                         }
                         return false;
@@ -93,11 +98,11 @@ public class MainActivity extends AppCompatActivity {
                     public boolean onTouch(View v, MotionEvent event) {
                         if (event.getAction() == MotionEvent.ACTION_DOWN) {
                             //Button pressed
-                            message = "Right";
+                            ControlL2Bot(MoveRight);
                             return true;
                         } else if (event.getAction() == MotionEvent.ACTION_UP) {
                             //Button released
-                            message = "Stop";
+                            ControlL2Bot("Stop");
                             return true;
                         }
                         return false;
@@ -110,11 +115,11 @@ public class MainActivity extends AppCompatActivity {
                     public boolean onTouch(View v, MotionEvent event) {
                         if (event.getAction() == MotionEvent.ACTION_DOWN) {
                             //Button pressed
-                            message = "Left";
+                            ControlL2Bot(MoveLeft);
                             return true;
                         } else if (event.getAction() == MotionEvent.ACTION_UP) {
                             //Button released do nothing
-                            message = "Stop";
+                            ControlL2Bot("Stop");
                             return true;
                         }
                         return false;
@@ -125,28 +130,31 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart()
     {
+        // L2Bot server
         super.onStart();
 
     }
 
-    public void SendUdpMsg()
+    public void SendRequestAndReceiveAndDisplaySinglePicture(final String FrameRequest)
     {
-        Thread networkThread = new Thread() {
 
-            // No local Host 127.0.0.1 in Android
+        VideoThread = new Thread(new Runnable()
+        {
+            public void run()
+            {
             String host = "192.168.200.3"; // Server's IP
             int port = 15000;
-            DatagramSocket dsocket = null;
-
-            public void run() {
+            DatagramSocket dsocket;
+            while(!VideoThread.isInterrupted())
+            {
                 try {
                     // Get the Internet address of the specified host
                     InetAddress address = InetAddress.getByName(host);
 
                     // wrap a packet
                     DatagramPacket packetToSend = new DatagramPacket(
-                            message.getBytes(),
-                            message.length(),
+                            FrameRequest.getBytes(),
+                            FrameRequest.length(),
                             address, port);
 
                     // Create a datagram socket, send the packet through it.
@@ -157,75 +165,174 @@ public class MainActivity extends AppCompatActivity {
                     byte[] buffer = new byte[65535]; // prepare
                     DatagramPacket packetReceived = new DatagramPacket(buffer, buffer.length); // prepare
 
-                    while (true)
+                    dsocket.receive(packetReceived); // receive packet
+                    byte[] buff = packetReceived.getData(); // convert packet to byte[]
+                    final Bitmap ReceivedImage = BitmapFactory.decodeByteArray(buff, 0, buff.length); // convert byte[] to image
+                    runOnUiThread(new Runnable()
                     {
-                        if(message.equals("StartV"))
+                        @Override
+                        public void run()
                         {
-                            dsocket.receive(packetReceived); // receive packet
-                            byte[] buff = packetReceived.getData(); // convert packet to byte[]
-                            final Bitmap ReceivedImage = BitmapFactory.decodeByteArray(buff, 0, buff.length); // convert byte[] to image
-                            runOnUiThread(new Runnable()
-                            {
-                                @Override
-                                public void run()
-                                {
-                                    // this is executed on the main (UI) thread
-                                    final ImageView imageView = (ImageView) findViewById(R.id.imageView);
-                                    imageView.setImageBitmap(ReceivedImage);
-                                }
-                            });
-
-                            ////////////////////////////////////////////////
-
-//                            // wrap a packet
-//                            packetToSend = new DatagramPacket(
-//                                    "StartV".getBytes(),
-//                                    "StartV".length(),
-//                                    address, port);
-//
-//                            // Create a datagram socket, send the packet through it.
-//                            dsocket = new DatagramSocket();
-//                            dsocket.send(packetToSend);
-
-                            ///////////////////////////////////////////////
-
+                            // this is executed on the main (UI) thread
+                            final ImageView imageView = (ImageView) findViewById(R.id.imageView);
+                            imageView.setImageBitmap(ReceivedImage);
                         }
-                        else
-                        {
-                            if (message.equals("Forward") || message.equals("Backward") || message.equals("Left") || message.equals("Stop") || message.equals("Right"))
-                            {
-                                // wrap a packet to send the Stop
-                                packetToSend = new DatagramPacket(
-                                        message.getBytes(),
-                                        message.length(),
-                                        address, port);
-
-                                // Create a datagram socket, send the packet through it.
-                                dsocket = new DatagramSocket();
-                                dsocket.send(packetToSend);
-                                message = "StartV";
-                            }
-                            else
-                            {
-                                packetToSend = new DatagramPacket(
-                                message.getBytes(),
-                                message.length(),
-                                address, port);
-
-                                // Create a datagram socket, send the packet through it.
-                                dsocket = new DatagramSocket();
-                                dsocket.send(packetToSend);
-                                break; // break the whole thread
-                            }
-                        }
-                    }
+                    });
 
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
-        };
-        networkThread.start();
+        } }); VideoThread.start();
+
+//        VideoThread = new Thread() {
+//
+//            // No local Host 127.0.0.1 in Android
+//            String host = "192.168.200.3"; // Server's IP
+//            int port = 15000;
+//            DatagramSocket dsocket = null;
+//
+//            public void run() {
+//
+//                while(!VideoThread.isInterrupted())
+//                {
+//                try {
+//                    // Get the Internet address of the specified host
+//                    InetAddress address = InetAddress.getByName(host);
+//
+//                    // wrap a packet
+//                    DatagramPacket packetToSend = new DatagramPacket(
+//                            FrameRequest.getBytes(),
+//                            FrameRequest.length(),
+//                            address, port);
+//
+//                    // Create a datagram socket, send the packet through it.
+//                    dsocket = new DatagramSocket();
+//                    dsocket.send(packetToSend);
+//
+//                    // Here, I am receiving the response
+//                    byte[] buffer = new byte[65535]; // prepare
+//                    DatagramPacket packetReceived = new DatagramPacket(buffer, buffer.length); // prepare
+//
+//                    dsocket.receive(packetReceived); // receive packet
+//                    byte[] buff = packetReceived.getData(); // convert packet to byte[]
+//                    final Bitmap ReceivedImage = BitmapFactory.decodeByteArray(buff, 0, buff.length); // convert byte[] to image
+//                    runOnUiThread(new Runnable()
+//                    {
+//                        @Override
+//                        public void run()
+//                        {
+//                            // this is executed on the main (UI) thread
+//                            final ImageView imageView = (ImageView) findViewById(R.id.imageView);
+//                            imageView.setImageBitmap(ReceivedImage);
+//                        }
+//                    });
+//
+//
+////                    while (true)
+////                    {
+////                        if(message.equals("StartV"))
+////                        {
+////                            dsocket.receive(packetReceived); // receive packet
+////                            byte[] buff = packetReceived.getData(); // convert packet to byte[]
+////                            final Bitmap ReceivedImage = BitmapFactory.decodeByteArray(buff, 0, buff.length); // convert byte[] to image
+////                            runOnUiThread(new Runnable()
+////                            {
+////                                @Override
+////                                public void run()
+////                                {
+////                                    // this is executed on the main (UI) thread
+////                                    final ImageView imageView = (ImageView) findViewById(R.id.imageView);
+////                                    imageView.setImageBitmap(ReceivedImage);
+////                                }
+////                            });
+////
+////                            ////////////////////////////////////////////////
+////
+//////                            // wrap a packet
+//////                            packetToSend = new DatagramPacket(
+//////                                    "StartV".getBytes(),
+//////                                    "StartV".length(),
+//////                                    address, port);
+//////
+//////                            // Create a datagram socket, send the packet through it.
+//////                            dsocket = new DatagramSocket();
+//////                            dsocket.send(packetToSend);
+////
+////                            ///////////////////////////////////////////////
+////
+////                        }
+////                        else
+////                        {
+////                            if (message.equals("Forward") || message.equals("Backward") || message.equals("Left") || message.equals("Stop") || message.equals("Right"))
+////                            {
+////                                // wrap a packet to send the Stop
+////                                packetToSend = new DatagramPacket(
+////                                        message.getBytes(),
+////                                        message.length(),
+////                                        address, port);
+////
+////                                // Create a datagram socket, send the packet through it.
+////                                dsocket = new DatagramSocket();
+////                                dsocket.send(packetToSend);
+////                                message = "StartV";
+////                            }
+////                            else
+////                            {
+////                                packetToSend = new DatagramPacket(
+////                                message.getBytes(),
+////                                message.length(),
+////                                address, port);
+////
+////                                // Create a datagram socket, send the packet through it.
+////                                dsocket = new DatagramSocket();
+////                                dsocket.send(packetToSend);
+////                                break; // break the whole thread
+////                            }
+////                        }
+////                    }
+//
+//                    } catch (Exception e) {
+//                    e.printStackTrace();
+//                    }
+//                }
+//            }
+//        };
+//        VideoThread.start();
+
+    }
+
+    public void ControlL2Bot(final String ControlRequest)
+    {
+        L2BotThread = new Thread() {
+
+        // No local Host 127.0.0.1 in Android
+        String host = "192.168.200.3"; // Server's IP
+        int port = 15000;
+        DatagramSocket dsocket = null;
+
+        public void run() {
+            try {
+                // Get the Internet address of the specified host
+                InetAddress address = InetAddress.getByName(host);
+
+                // wrap a packet
+                DatagramPacket packetToSend = new DatagramPacket(
+                        ControlRequest.getBytes(),
+                        ControlRequest.length(),
+                        address, port);
+
+                // Create a datagram socket, send the packet through it.
+                dsocket = new DatagramSocket();
+                dsocket.send(packetToSend);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+    };
+        L2BotThread.start();
     }
 }
 
