@@ -3,114 +3,148 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.kkhalaf.mpconbot.MainActivity">
 
-    <!--<Button
-        android:layout_width="150dp"
-        android:layout_height="100dp"
-        android:text="Forward"
-        android:id="@+id/ForwardButton"
-        android:layout_marginTop="62dp"
+    <ImageView
+        android:id="@+id/GalleryImageView"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:scaleType="fitXY"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
-    <TextView
-        android:layout_width="150dp"
-        android:layout_height="100dp"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:id="@+id/StatusText"
-        android:background="#ffffff00"
-        android:layout_alignParentBottom="true"
-        android:layout_alignLeft="@+id/ForwardButton"
-        android:layout_alignStart="@+id/ForwardButton" />
-    <Button
-        android:layout_width="150dp"
-        android:layout_height="100dp"
-        android:text="BACKWARD"
-        android:id="@+id/BackwardButton"
-        android:layout_centerVertical="true"
-        android:layout_alignLeft="@+id/ForwardButton"
-        android:layout_alignStart="@+id/ForwardButton" />
-    <Button
-        android:layout_width="100dp"
-        android:layout_height="150dp"
-        android:text="Right"
-        android:id="@+id/RightButton"
-        android:layout_alignTop="@+id/LeftButton"
-        android:layout_toEndOf="@+id/ForwardButton"
-        android:layout_toRightOf="@+id/ForwardButton" />
-    <Button
-        android:layout_width="110dp"
-        android:layout_height="150dp"
-        android:text="LEFT"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+
+
+    <ImageButton
+        android:id="@+id/ForwardButton"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/up_arrow_icon"
+        android:layout_weight="1"
+        android:padding="0dp"
+        android:scaleType="fitCenter"
+        android:background="@null"
+        android:elevation="0dp"
+        android:layout_above="@+id/BackwardButton"
+        android:layout_alignLeft="@+id/BackwardButton"
+        android:layout_alignStart="@+id/BackwardButton"
+        android:visibility="invisible" />
+
+    <ImageButton
         android:id="@+id/LeftButton"
-        android:layout_alignBottom="@+id/BackwardButton"
-        android:layout_toStartOf="@+id/ForwardButton"
-        android:layout_toLeftOf="@+id/ForwardButton" /> -->
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/left_arrow_icon"
+        android:layout_weight="1"
+        android:padding="0dp"
+        android:scaleType="fitCenter"
+        android:background="@null"
+        android:elevation="0dp"
+        android:layout_below="@+id/ForwardButton"
+        android:layout_toLeftOf="@+id/BackwardButton"
+        android:layout_toStartOf="@+id/BackwardButton"
+        android:visibility="invisible" />
+
+    <ImageButton
+        android:id="@+id/RightButton"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/right_arrow_icon"
+        android:layout_weight="1"
+        android:padding="0dp"
+        android:scaleType="fitCenter"
+        android:background="@null"
+        android:elevation="0dp"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/BackwardButton"
+        android:layout_toEndOf="@+id/BackwardButton"
+        android:layout_marginBottom="18dp"
+        android:visibility="invisible" />
+
+    <ImageButton
+        android:id="@+id/BackwardButton"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/down_arrow_icon"
+        android:layout_weight="1"
+        android:padding="0dp"
+        android:scaleType="fitCenter"
+        android:background="@null"
+        android:elevation="0dp"
+        android:layout_alignTop="@+id/RightButton"
+        android:layout_centerHorizontal="true"
+        android:visibility="invisible" />
+
+    <ImageButton
+        android:id="@+id/Gallery"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/gallery_icon"
+        android:layout_weight="1"
+        android:adjustViewBounds="true"
+        android:padding="0dp"
+        android:scaleType="fitCenter"
+        android:background="@null"
+        android:layout_marginLeft="13dp"
+        android:layout_marginStart="13dp"
+        android:layout_alignTop="@+id/LeftButton"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:visibility="invisible" />
+
+    <ImageButton
+        android:id="@+id/StartVButton"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/turn_on_red_icon"
+        android:layout_weight="1"
+        android:adjustViewBounds="true"
+        android:padding="0dp"
+        android:scaleType="fitCenter"
+        android:background="@null"
+        android:layout_alignTop="@+id/StopVButton"
+        android:layout_alignLeft="@+id/StopVButton"
+        android:layout_alignStart="@+id/StopVButton" />
+
+    <ImageButton
+        android:id="@+id/Snapshot"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/snapshot_icon"
+        android:layout_weight="1"
+        android:adjustViewBounds="true"
+        android:padding="0dp"
+        android:scaleType="fitCenter"
+        android:background="@null"
+        android:layout_marginRight="24dp"
+        android:layout_marginEnd="24dp"
+        android:visibility="invisible"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
     <ImageView
-        android:layout_width="300dp"
-        android:layout_height="250dp"
         android:id="@+id/imageView"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_height="fill_parent"
+        android:layout_width="50dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
-    <Button
-        android:layout_width="100dp"
-        android:layout_height="50dp"
-        android:text="StartV"
-        android:id="@+id/StartVButton"
-        android:layout_below="@+id/imageView"
-        android:layout_alignLeft="@+id/imageView"
-        android:layout_alignStart="@+id/imageView" />
-
-    <Button
-        android:layout_width="100dp"
-        android:layout_height="50dp"
-        android:text="StopV"
+    <ImageButton
         android:id="@+id/StopVButton"
-        android:layout_below="@+id/imageView"
-        android:layout_alignRight="@+id/imageView"
-        android:layout_alignEnd="@+id/imageView" />
-
-    <Button
-        android:layout_width="100dp"
-        android:layout_height="80dp"
-        android:text="Forward"
-        android:id="@+id/ForwardButton"
-        android:layout_above="@+id/BackwardButton"
-        android:layout_toLeftOf="@+id/RightButton"
-        android:layout_toStartOf="@+id/RightButton" />
-
-    <Button
-        android:layout_width="100dp"
-        android:layout_height="80dp"
-        android:text="BACKWARD"
-        android:id="@+id/BackwardButton"
-        android:layout_alignParentBottom="true"
-        android:layout_toLeftOf="@+id/RightButton"
-        android:layout_toStartOf="@+id/RightButton" />
-
-    <Button
-        android:layout_width="110dp"
-        android:layout_height="50dp"
-        android:text="Right"
-        android:id="@+id/RightButton"
-        android:layout_alignLeft="@+id/StopVButton"
-        android:layout_alignStart="@+id/StopVButton"
-        android:layout_alignParentBottom="true"
-        android:layout_alignTop="@+id/BackwardButton" />
-
-    <Button
-        android:layout_width="100dp"
-        android:layout_height="80dp"
-        android:text="Left"
-        android:id="@+id/LeftButton"
-        android:layout_alignParentBottom="true"
-        android:layout_toLeftOf="@+id/BackwardButton"
-        android:layout_toStartOf="@+id/BackwardButton" />
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/pause_icon"
+        android:layout_weight="1"
+        android:padding="0dp"
+        android:scaleType="fitCenter"
+        android:background="@null"
+        android:elevation="0dp"
+        android:visibility="invisible"
+        android:layout_marginTop="16dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignRight="@+id/Snapshot"
+        android:layout_alignEnd="@+id/Snapshot" />
 
 </RelativeLayout>

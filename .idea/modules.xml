@@ -4,6 +4,8 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/MPConBot.iml" filepath="$PROJECT_DIR$/MPConBot.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jcodec-0.1.9/jcodec-0.1.9.iml" filepath="$PROJECT_DIR$/jcodec-0.1.9/jcodec-0.1.9.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jcodec-javase-0.1.9/jcodec-javase-0.1.9.iml" filepath="$PROJECT_DIR$/jcodec-javase-0.1.9/jcodec-javase-0.1.9.iml" />
     </modules>
   </component>
 </project>
